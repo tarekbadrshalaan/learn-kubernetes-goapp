@@ -1,0 +1,3 @@
+CREATE DATABASE goapp; 
+\c goapp 
+CREATE TABLE IF NOT EXISTS workers (Id SERIAL PRIMARY KEY, worker varchar NOT NULL);

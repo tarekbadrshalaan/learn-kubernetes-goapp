@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goapp-database-deployment
+  labels:
+    app: goapp-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goapp-database
+  template:
+    metadata:
+      labels:
+        app: goapp-database
+    spec:
+      containers:
+      - name: goapp-database
+        image: goapp-database
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: goapp-secret
+              key: postgres_user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: goapp-secret
+              key: postgres_password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: goapp-database-service
+spec:
+  selector:
+    app: goapp-database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+
