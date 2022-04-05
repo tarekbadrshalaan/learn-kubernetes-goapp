@@ -1,3 +1,4 @@
+> minikube start
 > eval $(minikube docker-env)
 > kubectl get namespaces
 > kubectl create namespace goapp-namespace
@@ -18,12 +19,13 @@
 > docker build -t goapp .
 > kubectl apply -f goapp.yaml --namespace=goapp-namespace
 > kubectl describe pod goapp-deployment-6c658776dc-jlrmj
-> minikube start
 > minikube service --url goapp-service
 > minikube service --url goapp-database
 > kubectl logs -f pod/goapp-deployment-6c658776dc-9sfcr
 > kubectl exec -it pod/goapp-database-deployment-756dc74c4c-xz4sx -- psql -d goapp -U admin
 > select * from workers;
+> export KUBE_EDITOR='code --wait'
+> kubectl edit deployment -n myapp myapp-deploy
 
 
 docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
