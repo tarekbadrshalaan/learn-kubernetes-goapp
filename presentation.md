@@ -46,4 +46,6 @@ export POSTGRES_DB=goapp
     user: admin 
     password: kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
 > echo b2dZRjBDTE0yUG1XMUJMQ== | base64 --decode
-> 
+> kubectl apply -f argocdgoapp.yaml
+> kubectl edit deployment -n goapp goapp-deployment
+> kubectl port-forward -n goapp service/goapp-service 30001:8080
