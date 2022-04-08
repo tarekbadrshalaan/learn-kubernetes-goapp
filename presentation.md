@@ -35,9 +35,12 @@ export POSTGRES_DB=goapp
 > kubectl logs -f --namespace=goapp-namespace pod/goapp-deployment-6ff48bcc7f-f9j4l
 > kubectl cluster-info
 > http://192.168.49.2:30001/
+> kubectl exec -it  --namespace goapp-namespace pod/goapp-database-deployment-756dc74c4c-66tqj -- psql -d goapp -U admin
+> select * from workers;
 
 > kubectl get namespaces
 > kubectl delete namespace goapp-namespace
+> kubectl create namespace argocd
 > eval $(minikube docker-env)
 > kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 > kubectl get svc -n argocd
@@ -46,6 +49,12 @@ export POSTGRES_DB=goapp
     user: admin 
     password: kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
 > echo b2dZRjBDTE0yUG1XMUJMQ== | base64 --decode
-> kubectl apply -f argocdgoapp.yaml
-> kubectl edit deployment -n goapp goapp-deployment
+> cd ../argocd
+> kubectl apply -f argocd.yaml
+> export KUBE_EDITOR='code --wait'
+> kubectl edit deployment -n goapp-namespace goapp-deployment
 > kubectl port-forward -n goapp service/goapp-service 30001:8080
+> kubectl get namespaces
+> kubectl get all --namespace goapp-namespace
+> kubectl exec -it  --namespace goapp-namespace pod/goapp-database-deployment-756dc74c4c-66tqj -- psql -d goapp -U admin
+> select * from workers;
