@@ -40,7 +40,7 @@ export POSTGRES_DB=goapp
 > kubectl cluster-info
 > http://192.168.49.2:30001/
 > http://192.168.49.2:30001/worker?id=77
-> kubectl exec -it  --namespace goapp-namespace pod/goapp-database-deployment-756dc74c4c-66tqj -- psql -d goapp -U admin
+> kubectl exec -it --namespace goapp-namespace pod/goapp-database-deployment-756dc74c4c-66tqj -- psql -d goapp -U admin
 > select * from workers;
 >> * update replicas in goapp.yaml *
 > kubectl apply -f goapp.yaml --namespace=goapp-namespace
@@ -65,10 +65,12 @@ export POSTGRES_DB=goapp
 > eval $(minikube docker-env)
 > cd ../argocd
 > kubectl apply -f argocd.yaml
-> kubectl get all -n goapp-namespace
+> kubectl get all --namespace goapp-namespace
 > http://192.168.49.2:30001/
+> http://192.168.49.2:30001/worker?id=22
 > export KUBE_EDITOR='code --wait'
 > kubectl edit deployment -n goapp-namespace goapp-deployment
 > kubectl get all -n goapp-namespace
+>> * update git repo in goapp.yaml *
 > kubectl exec -it  --namespace goapp-namespace pod/goapp-database-deployment-756dc74c4c-66tqj -- psql -d goapp -U admin
 > select * from workers;
