@@ -1,4 +1,5 @@
 > minikube start
+> minikube stop
 > eval $(minikube docker-env)
 > kubectl get namespaces
 > kubectl create namespace goapp-namespace

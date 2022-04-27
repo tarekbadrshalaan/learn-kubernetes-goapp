@@ -26,6 +26,7 @@ export POSTGRES_DB=goapp
 
 
 > minikube start
+> minikube stop
 > kubectl get namespaces
 > eval $(minikube docker-env)
 > cd $HOME/learn/Kubernetes/learn-kubernetes-goapp/kubernetes
